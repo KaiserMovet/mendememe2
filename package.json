@@ -1,0 +1,12 @@
+{
+  "homepage": "https://kaisermovet.github.io/MapGenerator",
+  "scripts": {
+    "predeploy": "npm run build",
+    "build": "tsc",
+    "deploy": "gh-pages -d app"
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0",
+    "typescript": "^4.7.4"
+  }
+}
