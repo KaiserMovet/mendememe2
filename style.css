@@ -1,0 +1,47 @@
+
+.elements:after{
+    content: "";
+  display: table;
+  clear: both;
+  box-sizing: border-box;
+
+}
+.element {
+    float: left;
+    width: 5vw;
+    height: 5vw;
+    border-style: solid;
+    margin: 0.1vw;
+    box-sizing: border-box;
+    background: linear-gradient(60deg,#a3d5bf,#39a576);
+  
+}
+
+.mass {
+    text-align: right;
+    font-size: 0.8vw;
+    position: relative;
+    margin: 0.1vw;
+
+  }
+
+.number {
+  float: left;
+  font-size: 1vw;
+  position: absolute;
+  margin: 0.1vw;
+
+}
+
+.symbol {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0.1vw;
+  font-size: 2vw;
+}
+
+.name {
+  font-size: 0.8vw;
+  text-align: center;
+}
+
