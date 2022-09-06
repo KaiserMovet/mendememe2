@@ -10,6 +10,7 @@ function checkWord() {
         Results.clear();
     }
 }
+
 function main() {
     Results.founded_list = document.cookie
         .split('; ')
@@ -21,4 +22,5 @@ function main() {
     Results.addAllToFounded();
     checkWord();
 }
+
 main();

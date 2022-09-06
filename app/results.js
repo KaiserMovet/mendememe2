@@ -3,9 +3,13 @@ var ELCLASS = {
     "founded": ["btn", "btn-warning"],
     "button": ["btn", "btn-secondary"],
     "res": ["elements", "flex-nowrap"],
+    "row": ["container", "vertical-center"],
+
 }
 
 class Results {
+
+
 
     static getLang() {
         var e = document.getElementById("language");
@@ -39,6 +43,7 @@ class Results {
     static createImage(elements) {
         var innerDiv = document.createElement('div');
         innerDiv.classList.add(...ELCLASS.res);
+
         for (var el of elements) {
             innerDiv.appendChild(Results.createCell(el));
         }
@@ -91,7 +96,7 @@ class Results {
                         )
                     ])
                     .then(function () {
-                        console.log("Copied to clipboard");
+                        // Copied message
                     });
             });
         });
@@ -99,25 +104,26 @@ class Results {
 
     static prepareDiv(elements) {
         let names = "";
-        for (var element of elements) {
-            element = element.charAt(0).toUpperCase() + element.slice(1);
-            names += Results.chem.getElement(element)["polish_name"] + " ";
-        }
         var innerDiv = document.createElement('div');
-        innerDiv.innerHTML = names;
+        innerDiv.classList.add(...ELCLASS.row);
+
         let image = Results.createImage(elements)
         image.id = "element" + Math.floor(Math.random() * 100)
         innerDiv.appendChild(image);
 
         let button = document.createElement("button");
         button.classList.add(...ELCLASS.button)
-        button.innerHTML = "Copy to clipboard";
+        button.innerHTML = 'Copy';
         button.onclick = function () {
             Results.copyToClipboard(image.id)
         };
         innerDiv.appendChild(button);
-
-
+        // Add names
+        for (var element of elements) {
+            element = element.charAt(0).toUpperCase() + element.slice(1);
+            names += Results.chem.getElement(element)["polish_name"] + " ";
+        }
+        innerDiv.innerHTML += names;
         return innerDiv;
     }
     static addWord(word, results) {
