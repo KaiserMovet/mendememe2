@@ -70,7 +70,6 @@ class Results {
     }
 
     static addToFounded(founded) {
-        console.log()
         if (Results.founded_list.includes(founded))
             return;
         Results.founded_list.push(founded);
@@ -80,10 +79,7 @@ class Results {
     }
 
     static copyToClipboard(element_id) {
-        console.log(document)
         var svg = document.querySelector("#" + element_id);
-        console.log("#" + element_id)
-        console.log(svg)
         html2canvas(svg).then(function (canvas) {
             canvas.toBlob(function (blob) {
                 navigator.clipboard
@@ -96,7 +92,6 @@ class Results {
                         )
                     ])
                     .then(function () {
-                        // Copied message
                     });
             });
         });
@@ -123,7 +118,7 @@ class Results {
             element = element.charAt(0).toUpperCase() + element.slice(1);
             names += Results.chem.getElement(element)["polish_name"] + " ";
         }
-        innerDiv.innerHTML += names;
+        // innerDiv.innerHTML += names;
         return innerDiv;
     }
     static addWord(word, results) {
