@@ -10,7 +10,8 @@
 }
 
 .elements{
-  display: inline-block
+  display: inline-block;
+  flex-wrap: nowrap
 }
 
 .element {
@@ -41,14 +42,16 @@
 }
 
 .symbol {
+  height: 1.8vw;
   font-weight: bold;
   text-align: center;
   margin-top: 0.1vw;
-  font-size: 2vw;
+  margin-bottom: 0.1vw;
+  font-size: 1.8vw;
+  text-align: center;
 }
 
 .name {
   font-size: 0.8vw;
   text-align: center;
 }
-

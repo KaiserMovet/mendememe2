@@ -1,4 +1,10 @@
 "use strict";
+var ELCLASS = {
+    "founded": ["btn", "btn-warning"],
+    "button": ["btn", "btn-secondary"],
+    "res": ["elements", "flex-nowrap"],
+}
+
 class Results {
     static createCell(symbol_str) {
         symbol_str = symbol_str.charAt(0).toUpperCase() + symbol_str.slice(1);
@@ -21,11 +27,12 @@ class Results {
         cell.appendChild(symbol);
         cell.appendChild(name);
         cell.classList.add("element");
+
         return cell;
     }
     static createImage(elements) {
         var innerDiv = document.createElement('div');
-        innerDiv.classList.add("elements");
+        innerDiv.classList.add(...ELCLASS.res);
         for (var el of elements) {
             innerDiv.appendChild(Results.createCell(el));
         }
@@ -37,6 +44,11 @@ class Results {
         Results.founded_list.push(founded);
         var innerDiv = document.createElement('div');
         innerDiv.innerHTML = founded;
+        innerDiv.classList.add(...ELCLASS['founded']);
+        innerDiv.onclick = function () {
+            document.getElementById("word").value = founded
+            checkWord()
+        };
         Results.founded.appendChild(innerDiv);
     }
 
@@ -80,6 +92,7 @@ class Results {
         innerDiv.appendChild(image);
 
         let button = document.createElement("button");
+        button.classList.add(...ELCLASS.button)
         button.innerHTML = "Copy to clipboard";
         button.onclick = function () {
             Results.copyToClipboard(image.id)
