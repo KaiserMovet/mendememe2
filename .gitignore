@@ -2,3 +2,4 @@ node_modules
 data_original.json
 prepare_data.py
 app/js/data.json
+data.json

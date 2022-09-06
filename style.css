@@ -16,10 +16,10 @@
 
 .element {
     float: left;
-    width: 5vw;
-    height: 5vw;
+    width: 4em;
+    height: 4em;
     border-style: solid;
-    margin: 0.1vw;
+    margin: 0.2em;
     box-sizing: border-box;
     background: linear-gradient(60deg,#a3d5bf,#39a576);
   
@@ -27,31 +27,35 @@
 
 .mass {
     text-align: right;
-    font-size: 0.8vw;
+    font-size: 0.5em;
     position: relative;
-    margin: 0.1vw;
+    margin: 0.2em;
 
   }
 
 .number {
   float: left;
-  font-size: 1vw;
+  font-size: 0.7em;
   position: absolute;
-  margin: 0.1vw;
+  margin: 0.2em;
 
 }
 
 .symbol {
-  height: 1.8vw;
+  height: 0.5em;
   font-weight: bold;
   text-align: center;
-  margin-top: 0.1vw;
-  margin-bottom: 0.1vw;
-  font-size: 1.8vw;
+  margin-top: -0.35em;
+  margin-bottom: 0.7em;
+  font-size: 1.8em;
   text-align: center;
 }
 
 .name {
-  font-size: 0.8vw;
+  font-size: 60%;
   text-align: center;
+}
+
+#founded {
+
 }

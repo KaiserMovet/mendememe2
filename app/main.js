@@ -11,7 +11,14 @@ function checkWord() {
     }
 }
 function main() {
-    console.log("dziala");
+    Results.founded_list = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('test2='))
+        ?.split('=')[1].split(',');
+    if (isNaN(Results.founded_list)) {
+        Results.founded_list = [];
+    }
+    Results.addAllToFounded();
     checkWord();
 }
 main();
