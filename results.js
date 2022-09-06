@@ -6,12 +6,18 @@ var ELCLASS = {
 }
 
 class Results {
+
+    static getLang() {
+        var e = document.getElementById("language");
+        return e.value;
+    }
+
     static createCell(symbol_str) {
         symbol_str = symbol_str.charAt(0).toUpperCase() + symbol_str.slice(1);
         var cell = document.createElement('div');
         var data = Results.chem.getElement(symbol_str);
         var name = document.createElement('div');
-        name.innerHTML = data["name"];
+        name.innerHTML = data[Results.getLang()];
         name.classList.add("name");
         var symbol = document.createElement('div');
         symbol.innerHTML = symbol_str;
@@ -38,18 +44,34 @@ class Results {
         }
         return innerDiv;
     }
-    static addToFounded(founded) {
-        if (Results.founded_list.includes(founded))
-            return;
-        Results.founded_list.push(founded);
+
+    static getFoundedEl(founded) {
         var innerDiv = document.createElement('div');
         innerDiv.innerHTML = founded;
         innerDiv.classList.add(...ELCLASS['founded']);
+        innerDiv.id = "founded-" + founded;
         innerDiv.onclick = function () {
             document.getElementById("word").value = founded
             checkWord()
         };
-        Results.founded.appendChild(innerDiv);
+        return innerDiv
+    }
+
+    static addAllToFounded() {
+        Results.founded_list.sort()
+        for (let founded of Results.founded_list) {
+            Results.founded.appendChild(Results.getFoundedEl(founded));
+        }
+    }
+
+    static addToFounded(founded) {
+        console.log()
+        if (Results.founded_list.includes(founded))
+            return;
+        Results.founded_list.push(founded);
+        let d = new Date()
+        Results.founded.appendChild(Results.getFoundedEl(founded));
+        document.cookie = "founded=" + Results.founded_list.toString() + ";expires=" + d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000)) + ";";
     }
 
     static copyToClipboard(element_id) {
@@ -76,17 +98,13 @@ class Results {
     }
 
     static prepareDiv(elements) {
-        let symbols = "";
-        let symbols_with_space = "";
         let names = "";
         for (var element of elements) {
             element = element.charAt(0).toUpperCase() + element.slice(1);
-            symbols += element;
-            symbols_with_space += element + " ";
             names += Results.chem.getElement(element)["polish_name"] + " ";
         }
         var innerDiv = document.createElement('div');
-        innerDiv.innerHTML = symbols + " | " + symbols_with_space + " | " + names;
+        innerDiv.innerHTML = names;
         let image = Results.createImage(elements)
         image.id = "element" + Math.floor(Math.random() * 100)
         innerDiv.appendChild(image);
