@@ -1,4 +1,10 @@
 "use strict";
+var ELCLASS = {
+    "founded": ["btn", "btn-warning"],
+    "button": ["btn", "btn-secondary"],
+    "res": ["elements", "flex-nowrap"],
+}
+
 class Results {
     static createCell(symbol_str) {
         symbol_str = symbol_str.charAt(0).toUpperCase() + symbol_str.slice(1);
@@ -21,11 +27,12 @@ class Results {
         cell.appendChild(symbol);
         cell.appendChild(name);
         cell.classList.add("element");
+
         return cell;
     }
     static createImage(elements) {
         var innerDiv = document.createElement('div');
-        innerDiv.classList.add("elements");
+        innerDiv.classList.add(...ELCLASS.res);
         for (var el of elements) {
             innerDiv.appendChild(Results.createCell(el));
         }
@@ -37,8 +44,37 @@ class Results {
         Results.founded_list.push(founded);
         var innerDiv = document.createElement('div');
         innerDiv.innerHTML = founded;
+        innerDiv.classList.add(...ELCLASS['founded']);
+        innerDiv.onclick = function () {
+            document.getElementById("word").value = founded
+            checkWord()
+        };
         Results.founded.appendChild(innerDiv);
     }
+
+    static copyToClipboard(element_id) {
+        console.log(document)
+        var svg = document.querySelector("#" + element_id);
+        console.log("#" + element_id)
+        console.log(svg)
+        html2canvas(svg).then(function (canvas) {
+            canvas.toBlob(function (blob) {
+                navigator.clipboard
+                    .write([
+                        new ClipboardItem(
+                            Object.defineProperty({}, blob.type, {
+                                value: blob,
+                                enumerable: true
+                            })
+                        )
+                    ])
+                    .then(function () {
+                        console.log("Copied to clipboard");
+                    });
+            });
+        });
+    }
+
     static prepareDiv(elements) {
         let symbols = "";
         let symbols_with_space = "";
@@ -51,7 +87,19 @@ class Results {
         }
         var innerDiv = document.createElement('div');
         innerDiv.innerHTML = symbols + " | " + symbols_with_space + " | " + names;
-        innerDiv.appendChild(Results.createImage(elements));
+        let image = Results.createImage(elements)
+        image.id = "element" + Math.floor(Math.random() * 100)
+        innerDiv.appendChild(image);
+
+        let button = document.createElement("button");
+        button.classList.add(...ELCLASS.button)
+        button.innerHTML = "Copy to clipboard";
+        button.onclick = function () {
+            Results.copyToClipboard(image.id)
+        };
+        innerDiv.appendChild(button);
+
+
         return innerDiv;
     }
     static addWord(word, results) {
