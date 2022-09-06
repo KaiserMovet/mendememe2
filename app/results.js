@@ -39,6 +39,30 @@ class Results {
         innerDiv.innerHTML = founded;
         Results.founded.appendChild(innerDiv);
     }
+
+    static copyToClipboard(element_id) {
+        console.log(document)
+        var svg = document.querySelector("#" + element_id);
+        console.log("#" + element_id)
+        console.log(svg)
+        html2canvas(svg).then(function (canvas) {
+            canvas.toBlob(function (blob) {
+                navigator.clipboard
+                    .write([
+                        new ClipboardItem(
+                            Object.defineProperty({}, blob.type, {
+                                value: blob,
+                                enumerable: true
+                            })
+                        )
+                    ])
+                    .then(function () {
+                        console.log("Copied to clipboard");
+                    });
+            });
+        });
+    }
+
     static prepareDiv(elements) {
         let symbols = "";
         let symbols_with_space = "";
@@ -51,7 +75,18 @@ class Results {
         }
         var innerDiv = document.createElement('div');
         innerDiv.innerHTML = symbols + " | " + symbols_with_space + " | " + names;
-        innerDiv.appendChild(Results.createImage(elements));
+        let image = Results.createImage(elements)
+        image.id = "element" + Math.floor(Math.random() * 100)
+        innerDiv.appendChild(image);
+
+        let button = document.createElement("button");
+        button.innerHTML = "Copy to clipboard";
+        button.onclick = function () {
+            Results.copyToClipboard(image.id)
+        };
+        innerDiv.appendChild(button);
+
+
         return innerDiv;
     }
     static addWord(word, results) {
