@@ -21,8 +21,10 @@ function checkWord() {
 function main() {
     Founded.founded_list = document.cookie
         .split('; ')
-        .find((row) => row.startsWith('test2='))
+        .find((row) => row.startsWith('founded='))
         ?.split('=')[1].split(',');
+    console.log(Founded.document.cookie)
+    console.log(Founded.founded_list)
     if (isNaN(Founded.founded_list)) {
         Founded.founded_list = [];
     }
