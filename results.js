@@ -1,9 +1,9 @@
 "use strict";
 var ELCLASS = {
     "founded": ["btn", "btn-warning"],
-    "button": ["btn", "btn-secondary"],
+    "button": ["btn", "btn-secondary", "btn-copy"],
     "res": ["elements", "flex-nowrap"],
-    "row": ["container", "vertical-center"],
+    "row": ["vertical-center"],
 
 }
 // Class used to store founded words
@@ -50,36 +50,48 @@ class Results {
         return e.value;
     }
 
-    static createCell(symbol_str) {
-        symbol_str = symbol_str.charAt(0).toUpperCase() + symbol_str.slice(1);
+    // Create cell element for given data
+    static createCell(symbol, number, mass, name, style = "") {
         var cell = document.createElement('div');
-        var data = Results.chem.getElement(symbol_str);
-        var name = document.createElement('div');
-        name.innerHTML = data[Results.getLang()];
-        name.classList.add("name");
-        var symbol = document.createElement('div');
-        symbol.innerHTML = symbol_str;
-        symbol.classList.add("symbol");
-        var number = document.createElement('div');
-        number.innerHTML = data["number"];
-        number.classList.add("number");
-        var mass = document.createElement('div');
-        mass.innerHTML = (Math.round(data["atomic_mass"] * 1000) / 1000).toString();
-        mass.classList.add("mass");
-        cell.appendChild(number);
-        cell.appendChild(mass);
-        cell.appendChild(symbol);
-        cell.appendChild(name);
+        var name_el = document.createElement('div');
+        name_el.innerHTML = name;
+        name_el.classList.add("name");
+        var symbol_el = document.createElement('div');
+        symbol_el.innerHTML = symbol;
+        symbol_el.classList.add("symbol");
+        var number_el = document.createElement('div');
+        number_el.innerHTML = number;
+        number_el.classList.add("number");
+        var mass_el = document.createElement('div');
+        mass_el.innerHTML = (Math.round(mass * 1000) / 1000).toString();
+        mass_el.classList.add("mass");
+        cell.appendChild(number_el);
+        cell.appendChild(mass_el);
+        cell.appendChild(symbol_el);
+        cell.appendChild(name_el);
         cell.classList.add("element");
+        if (style) cell.classList.add(style);
 
-        return cell;
+        return cell
+    }
+
+    // Create cell element from symbol
+    static createCellFromSymbol(symbol_str) {
+        var symbol_str = symbol_str.charAt(0).toUpperCase() + symbol_str.slice(1);
+        var data = Results.chem.getElement(symbol_str);
+        var number = data["number"];
+        var mass = data["atomic_mass"];
+        var name = data[Results.getLang()];
+        console.log(document.getElementById("style-name").value)
+        var style = document.getElementById("style-name").value
+        return Results.createCell(symbol_str, number, mass, name, style);
     }
     static createImage(elements) {
         var innerDiv = document.createElement('div');
         innerDiv.classList.add(...ELCLASS.res);
 
         for (var el of elements) {
-            innerDiv.appendChild(Results.createCell(el));
+            innerDiv.appendChild(Results.createCellFromSymbol(el));
         }
         return innerDiv;
     }

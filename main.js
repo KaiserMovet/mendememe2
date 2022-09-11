@@ -19,6 +19,7 @@ function checkWord() {
 }
 
 function main() {
+    Styles.init()
     Founded.founded_list = document.cookie
         .split('; ')
         .find((row) => row.startsWith('founded='))
