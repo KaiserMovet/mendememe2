@@ -6,7 +6,41 @@ var ELCLASS = {
     "row": ["container", "vertical-center"],
 
 }
+// Class used to store founded words
+class Founded {
+    static addToFounded(founded) {
+        if (Founded.founded_list.includes(founded))
+            return;
+        Founded.founded_list.push(founded);
+        let d = new Date()
+        Founded.founded.appendChild(Founded.getFoundedEl(founded));
+        document.cookie = "founded=" + Founded.founded_list.toString() + ";expires=" + d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000)) + ";";
+    }
 
+    static getFoundedEl(founded) {
+        var innerDiv = document.createElement('div');
+        innerDiv.innerHTML = founded;
+        innerDiv.classList.add(...ELCLASS['founded']);
+        innerDiv.id = "founded-" + founded;
+        innerDiv.onclick = function () {
+            document.getElementById("word").value = founded
+            checkWord()
+        };
+        return innerDiv
+    }
+
+    static addAllToFounded() {
+        Founded.founded_list.sort()
+        for (let founded of Founded.founded_list) {
+            Founded.founded.appendChild(Founded.getFoundedEl(founded));
+        }
+    }
+}
+
+Founded.founded = document.getElementById("founded");
+Founded.founded_list = [];
+
+// Class used to display founded solution for word
 class Results {
 
 
@@ -48,34 +82,6 @@ class Results {
             innerDiv.appendChild(Results.createCell(el));
         }
         return innerDiv;
-    }
-
-    static getFoundedEl(founded) {
-        var innerDiv = document.createElement('div');
-        innerDiv.innerHTML = founded;
-        innerDiv.classList.add(...ELCLASS['founded']);
-        innerDiv.id = "founded-" + founded;
-        innerDiv.onclick = function () {
-            document.getElementById("word").value = founded
-            checkWord()
-        };
-        return innerDiv
-    }
-
-    static addAllToFounded() {
-        Results.founded_list.sort()
-        for (let founded of Results.founded_list) {
-            Results.founded.appendChild(Results.getFoundedEl(founded));
-        }
-    }
-
-    static addToFounded(founded) {
-        if (Results.founded_list.includes(founded))
-            return;
-        Results.founded_list.push(founded);
-        let d = new Date()
-        Results.founded.appendChild(Results.getFoundedEl(founded));
-        document.cookie = "founded=" + Results.founded_list.toString() + ";expires=" + d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000)) + ";";
     }
 
     static copyToClipboard(element_id) {
@@ -122,7 +128,6 @@ class Results {
         return innerDiv;
     }
     static addWord(word, results) {
-        Results.addToFounded(word);
         Results.clear();
         for (var res of results) {
             var innerDiv = Results.prepareDiv(res);
@@ -134,6 +139,4 @@ class Results {
     }
 }
 Results.results = document.getElementById("results");
-Results.founded = document.getElementById("founded");
-Results.founded_list = [];
 Results.chem = new Chem();
