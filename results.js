@@ -31,7 +31,9 @@ class Founded {
 
     static addAllToFounded() {
         Founded.founded_list.sort()
+        console.log("Adding", Founded.founded_list)
         for (let founded of Founded.founded_list) {
+            console.log("Adding from cookie", founded)
             Founded.founded.appendChild(Founded.getFoundedEl(founded));
         }
     }

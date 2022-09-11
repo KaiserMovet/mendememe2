@@ -28,6 +28,7 @@ function main() {
     if (isNaN(Founded.founded_list)) {
         Founded.founded_list = [];
     }
+    console.log(Founded.founded_list)
     Founded.addAllToFounded();
     checkWord();
 }
