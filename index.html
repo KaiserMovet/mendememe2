@@ -3,8 +3,8 @@
 
 <body>
   <form action="">
-    <input type="text" minlength="1" maxlength="50" id="word" value="carbon" />
-    <input type="button" value="Generate" onclick="checkWord()" />
+    <input type="text" minlength="1" maxlength="50" id="word" value="carbon" oninput="checkWord()" />
+    <input type="button" value="Save" onclick="saveWord()" id="save_button" />
     <select class="custom-select" id="language" onchange="checkWord()">
       <option selected value="name">English</option>
       <option value="polish_name">Polish</option>
