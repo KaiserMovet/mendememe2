@@ -23,7 +23,7 @@ function main() {
         .split('; ')
         .find((row) => row.startsWith('founded='))
         ?.split('=')[1].split(',');
-    console.log(Founded.document.cookie)
+    console.log(document.cookie)
     console.log(Founded.founded_list)
     if (isNaN(Founded.founded_list)) {
         Founded.founded_list = [];
