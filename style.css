@@ -1,3 +1,9 @@
+body {
+  background-image: linear-gradient(60deg, #656565, #3b3b3b);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 #results>* {
   margin: 1em;
 }
@@ -90,4 +96,14 @@
 
 .red {
   background: linear-gradient(60deg, #a3d5bf, #ff0000);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(44, 43, 43);
+  color: rgb(168, 168, 168);
+  text-align: center;
 }
